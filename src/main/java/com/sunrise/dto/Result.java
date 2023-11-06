@@ -1,4 +1,4 @@
-package com.sunrise;
+package com.sunrise.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
