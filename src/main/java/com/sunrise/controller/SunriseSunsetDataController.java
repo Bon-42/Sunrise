@@ -3,11 +3,14 @@ package com.sunrise.controller;
 import com.sunrise.models.SunriseSunsetData;
 import com.sunrise.service.SunriseSunsetDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,8 +23,14 @@ public class SunriseSunsetDataController {
         RestTemplate restTemplate;
 
         @GetMapping
-        public List<SunriseSunsetData> getAllSunriseSunsetData() {
+        public List<SunriseSunsetData> getAllSunriseSunsetData() throws Exception {
                 return service.getAllSunriseSunsetData();
+        }
+
+        @GetMapping("/{date}")
+        public SunriseSunsetData getSunriseSunsetDataById(
+                @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
+                return service.getSunriseSunsetByDate (date);
         }
 
         /*

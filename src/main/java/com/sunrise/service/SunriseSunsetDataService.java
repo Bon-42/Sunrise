@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -25,8 +26,12 @@ public class SunriseSunsetDataService {
     @Autowired
     private SunriseSunsetDataRepository repository;
 
+    public SunriseSunsetDataService() throws Exception {
+    }
 
-    public SunriseSunsetData saveSunriseSunsetData() throws Exception {
+
+    public void saveSunriseSunsetData() throws Exception {
+
 
         Result response = serviceCall.getTimesFromExternalApi(restTemplate);
 
@@ -46,7 +51,13 @@ public class SunriseSunsetDataService {
         data.setAstronomicalTwilightEnd(results.getAstronomicalTwilightEnd());
         data.setRecordDate(LocalDateTime.now(ZoneId.of("America/Denver")).toLocalDate());
 
-        return repository.save(data);
+         repository.save(data);
+
+    }
+
+    public SunriseSunsetData getSunriseSunsetByDate(LocalDate date) throws Exception {
+        return repository.findByRecordDate(date);
+
     }
 
     public List<SunriseSunsetData> getAllSunriseSunsetData() {
@@ -54,10 +65,6 @@ public class SunriseSunsetDataService {
     }
 
     /*
-    public SunriseSunsetData getSunriseSunsetDataById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
     public void deleteSunriseSunsetData(Long id) {
         repository.deleteById(id);
     }
