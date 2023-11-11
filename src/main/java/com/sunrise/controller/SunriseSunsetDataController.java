@@ -1,6 +1,6 @@
 package com.sunrise.controller;
 
-import com.sunrise.models.SunriseSunsetData;
+import com.sunrise.models.SunriseData;
 import com.sunrise.service.SunriseSunsetDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,12 +23,12 @@ public class SunriseSunsetDataController {
         RestTemplate restTemplate;
 
         @GetMapping
-        public List<SunriseSunsetData> getAllSunriseSunsetData() throws Exception {
+        public List<SunriseData> getAllSunriseSunsetData() throws Exception {
                 return service.getAllSunriseSunsetData();
         }
 
         @GetMapping("/{date}")
-        public SunriseSunsetData getSunriseSunsetDataById(
+        public List<SunriseData> getSunriseSunsetDataById(
                 @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
                 return service.getSunriseSunsetByDate (date);
         }

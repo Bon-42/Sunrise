@@ -11,7 +11,7 @@ public class ScheduledTasks {
     @Autowired
     SunriseSunsetDataService sunriseSunsetDataService;
 
-    @Scheduled(cron = "0 0 6 * * ?", zone="MST")
+    @Scheduled(cron = "0 10 * * * ?", zone="MST")
     public void executeTask() throws Exception {
         sunriseSunsetDataService.saveSunriseSunsetData();
     }
